@@ -33,7 +33,7 @@ A documentação deste projeto está organizada na **Wiki** deste repositório, 
 | **Levi Farias** | [@lfariazzz](https://github.com/lfariazzz)
 | **Henrique Coimbra** | [@HenriqueCoimbra12](https://github.com/HenriqueCoimbra12)
 | **Malaquias** | [@malaquiaso841-cyber](https://github.com/malaquiaso841-cyber)
-| **Wesley** | [@awesleyy](https://github.com/awesleyy)
+| **André** | [@awesleyy](https://github.com/awesleyy)
 
 **Orientador:** Prof. Willianson Silva & Prof. Raphael Will
 
