@@ -20,17 +20,10 @@ Este projeto consiste no desenvolvimento de um Banco de Dados passando pelo cicl
 ## 📂 Estrutura do Projeto e Instruções
 A documentação deste projeto está organizada na **Wiki** deste repositório, com uma página para cada um dos artefatos que serão entregues:
 
-* **[Acesse a WIKI Oficial aqui](https://gitlab.com/ufca/cct/es-bd-2025-2/grupo16/-/wikis/home)**
+* **[Acesse a WIKI Oficial aqui]([https://gitlab.com/ufca/cct/es-bd-2025-2/grupo16/-/wikis/home](https://github.com/lfariazzz/health-queue-db/wiki))**
     * Consulte a seção *01. Requisitos* para entender as Regras de Negócio.
     * Consulte a seção *02. MER* e *03. DER* para ver a modelagem dos dados.
     * Consulte a seção *04. Esquema Relacional* para ver a estrutura das tabelas.
-
-* **[Acessar ISSUES - Quadro de Tarefas (Board)](https://gitlab.com/ufca/cct/es-bd-2025-2/grupo16/-/issues)**
-    ### Primeira entrega
-    * **Issue #2:** Estruturação Inicial do Repositório
-    * **Issue #3:** Definição do Problema e Escopo
-    * **Issue #4:** Elaboração das User Stories
-    * **Issue #5:** Elaboração do Diagrama Conceitual
 
 
 
