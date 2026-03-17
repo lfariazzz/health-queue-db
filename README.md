@@ -26,7 +26,6 @@ A documentação deste projeto está organizada na **Wiki** deste repositório, 
     * Consulte a seção *04. Esquema Relacional* para ver a estrutura das tabelas.
 
 
-
 ## 👥 Equipe do Projeto
 | Desenvolvedor | Perfil
 | :--- | :--- |
@@ -34,6 +33,16 @@ A documentação deste projeto está organizada na **Wiki** deste repositório, 
 | **Henrique Coimbra** | [@HenriqueCoimbra12](https://github.com/HenriqueCoimbra12)
 | **Malaquias** | [@malaquiaso841-cyber](https://github.com/malaquiaso841-cyber)
 | **André** | [@awesleyy](https://github.com/awesleyy)
+
+## Configuração do banco
+
+1. Instale o MySQL localmente
+2. Rode o script `banco.sql` para criar o banco
+3. Copie `.env.example` para `.env`:
+   cp .env.example .env
+4. Edite o `.env` com sua senha do MySQL
+5. pip install mysql-connector-python python-dotenv
+6. python main.py
 
 **Orientador:** Prof. Willianson Silva & Prof. Raphael Will
 

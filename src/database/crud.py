@@ -1,4 +1,4 @@
-from app.conexao import conectar
+from src.database.conexao import conectar
 
 # ---------------- CREATE ----------------
 

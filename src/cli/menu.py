@@ -1,4 +1,4 @@
-from app.crud import (
+from src.database.crud import (
     inserir_pessoa_com_endereco, inserir_servico, inserir_oferece
 )
 
