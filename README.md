@@ -6,17 +6,6 @@ Este projeto consiste no desenvolvimento de um Banco de Dados passando pelo cicl
 **Questão de Pesquisa:**
 > "Como um sistema para gestão de filas e agendamentos públicos (CRAS, postos de saúde, CREAS) pode reduzir tempo de espera e faltas com regras de prioridade?"
 
-**Objetivos Principais:**
-* Modelar um banco de dados capaz de gerenciar agendamentos em múltiplas unidades (Saúde e Assistência Social).
-* Implementar regras de negócio para **prioridades legais** (idosos, PCDs, gestantes).
-* Criar mecanismos para registro e monitoramento de **faltas**.
-* Extrair requisitos de informação de um contexto;
-* Construir um MER explícito (entidades, atributos, chaves, relacionamentos, cardinalidades, regras);
-* Elaborar um DER claro na notação escolhida (notação Chen ou Crow’s Foot).;
-* Mapear ER → relacional (tabelas, PK/FK, associativas, especializações, entidades fracas);
-* Identificar Dependências Funcionais (DFs) e normalizar (1FN, 2FN, 3FN), reconhecendo e prevenindo anomalias.
-* Desenvolver habilidades de projeto em equipe e resolução de problemas reais.
-
 ## 📂 Estrutura do Projeto e Instruções
 
 A documentação deste projeto está organizada na **Wiki** deste repositório, com uma página para cada um dos artefatos entregues:
@@ -52,7 +41,7 @@ A documentação deste projeto está organizada na **Wiki** deste repositório, 
 5. pip install mysql-connector-python python-dotenv
 6. python main.py
 ```
-
+---
 ## 👥 Equipe do Projeto
 | Desenvolvedor | Perfil
 | :--- | :--- |
@@ -64,4 +53,4 @@ A documentação deste projeto está organizada na **Wiki** deste repositório, 
 **Orientador:** Prof. Willianson Silva & Prof. Raphael Will
 
 ---
-*Projeto desenvolvido como requisito parcial da disciplina de Banco de Dados.*
+*Projeto desenvolvido na disciplina de Banco de Dados de UFCA.*
