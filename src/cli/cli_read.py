@@ -31,7 +31,7 @@ def _print_rows(rows):
 
 def menu_read():
     while True:
-        print("\n--- MENU READ ---")
+        print("\n--- MENU ---")
         print("1. Listar serviços oferecidos")
         print("2. Listar unidades disponíveis")
         print("3. Listar possíveis clientes registrados")
