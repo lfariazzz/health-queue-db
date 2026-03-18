@@ -45,4 +45,5 @@ def menu_delete():
         else:
             print("Opção inválida.")
 
-menu_delete()
+if __name__ == "__main__":
+    menu_delete()

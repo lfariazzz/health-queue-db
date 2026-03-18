@@ -2,7 +2,7 @@ from datetime import datetime, date
 from datetime import datetime
 import re
 import hashlib
-from src.database.crud import (
+from src.database.create import (
     inserir_pessoa_com_endereco, inserir_servico, inserir_funcionario, 
     inserir_usuario, verificar_pessoa_existe, inserir_unidade, inserir_agendamento, inserir_cidadao, inserir_oferece
 )

@@ -1,6 +1,8 @@
 # NAO ESQUECER DE IMPORTAS AS FUNCOES
-from src.cli.cli_create import menu_create
-from src.cli.cli_create import 
+from src.cli.cli_create import menu
+from src.cli.cli_update import menu_update
+from src.cli.cli_read import menu_read
+from src.cli.cli_delete import menu_delete
 
 def exibir_cabecalho():
     print("\n" + "="*30)
@@ -20,7 +22,7 @@ def main():
         opcao = input("Escolha uma opção: ")
 
         if opcao == '1':
-            menu_create() 
+            menu() 
 
         elif opcao == '2':
             menu_update() 
