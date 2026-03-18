@@ -80,8 +80,24 @@ def listar_medicos_por_unidade(nome_unidade):
     conn.close()
     return medicos
 
-#Consulta parametrizável simples 2
-"""Quais são os dependentes do cidadão X"""
+# Consulta parametrizável simples 2
+"""Quais são os dependentes do cidadão X?"""
+def listar_dependentes_por_cidadao(cpf_responsavel):
+    conn = conectar()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("""SELECT 
+                        pessoa.NOME AS nome_dependente,
+                        pessoa.CPF AS cpf_dependente,
+                        cidadao.CARTAO_SUS,
+                        dependente.PARENTESCO,
+                        dependente.VIGENCIA
+                    FROM dependente
+                    JOIN pessoa ON dependente.ID_PESSOA = pessoa.CPF
+                    JOIN cidadao ON pessoa.CPF = cidadao.ID_PESSOA
+                    WHERE dependente.ID_RESPONSAVEL = %s""", (cpf_responsavel,))
+    dependentes = cursor.fetchall()
+    conn.close()
+    return dependentes
 
 # Consulta parametrizável simples 3
 """Qual é a ordem de prioridade na unidade X?"""
@@ -100,10 +116,7 @@ def listar_prioridade_de_cidadao_por_unidade(nome_unidade):
                     JOIN unidade ON agendamento.ID_UNIDADE_SEDIADA = unidade.ID_UNIDADE
                     WHERE unidade.NOME = %s AND agendamento.STATUS_AGENDAMENTO = 'PENDENTE'
                     ORDER BY agendamento.PRIORIDADE DESC, agendamento.DATA ASC, agendamento.HORA ASC""", (nome_unidade,))
-    
-    # Armazena os resultados na variável em vez de imprimir aqui
     cidadaos_prioridade = cursor.fetchall()
-    
     conn.close()
     return cidadaos_prioridade
 
