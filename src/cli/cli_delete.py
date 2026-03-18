@@ -44,5 +44,3 @@ def menu_delete():
             break
         else:
             print("Opção inválida.")
-
-menu_delete()

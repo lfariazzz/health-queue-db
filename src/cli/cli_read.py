@@ -78,6 +78,3 @@ def menu_read():
             break
         else:
             print("Opção inválida.")
-
-
-menu_read()
