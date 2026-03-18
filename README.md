@@ -42,16 +42,6 @@ A documentação deste projeto está organizada na **Wiki** deste repositório, 
 
 1. Clone o repositório:
 ```bash
-
-
-## 👥 Equipe do Projeto
-| Desenvolvedor | Perfil
-| :--- | :--- |
-| **Levi Farias** | [@lfariazzz](https://github.com/lfariazzz)
-| **Henrique Coimbra** | [@HenriqueCoimbra12](https://github.com/HenriqueCoimbra12)
-| **Malaquias** | [@malaquiaso841-cyber](https://github.com/malaquiaso841-cyber)
-| **André** | [@awesleyy](https://github.com/awesleyy)
-
 ## Configuração do banco
 
 1. Instale o MySQL localmente
@@ -61,6 +51,15 @@ A documentação deste projeto está organizada na **Wiki** deste repositório, 
 4. Edite o `.env` com sua senha do MySQL
 5. pip install mysql-connector-python python-dotenv
 6. python main.py
+```
+
+## 👥 Equipe do Projeto
+| Desenvolvedor | Perfil
+| :--- | :--- |
+| **Levi Farias** | [@lfariazzz](https://github.com/lfariazzz)
+| **Henrique Coimbra** | [@HenriqueCoimbra12](https://github.com/HenriqueCoimbra12)
+| **Malaquias** | [@malaquiaso841-cyber](https://github.com/malaquiaso841-cyber)
+| **André** | [@awesleyy](https://github.com/awesleyy)
 
 **Orientador:** Prof. Willianson Silva & Prof. Raphael Will
 
