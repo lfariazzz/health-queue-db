@@ -1,202 +1,84 @@
-from src.database.conexao import conectar
+from src.database.update import (
+    atualizar_endereco, atualizar_oferece, atualizar_pessoa, 
+    atualizar_usuario, atualizar_servico
+)
 
+def menu_update():
+    while True:
+        print("\n--- MENU DE ATUALIZAÇÃO ---")
+        print("1. Atualizar Endereço")
+        print("2. Atualizar Pessoa")
+        print("3. Atualizar Usuário")
+        print("4. Atualizar Serviço")
+        print("5. Atualizar Associação (Oferece)")
+        print("0. Voltar")
 
-def atualizar_endereco(id_endereco, cep = None, rua = None, numero = None, bairro = None):
-    campos_para_atualizar = []
-    valores = []
+        opcao = input("Escolha uma opção: ")
 
-    if cep is not None: 
-        campos_para_atualizar.append("CEP = %s")
-        valores.append(cep)
+        if opcao == "0":
+            break
 
-    if rua is not None: 
-        campos_para_atualizar.append("RUA = %s")
-        valores.append(rua)
+        # --- Lógica para Endereço ---
+        if opcao == "1":
+            id_end = input("ID do Endereço que deseja alterar: ")
+            print("Pressione ENTER para manter o valor atual.")
+            cep = input("Novo CEP: ") or None
+            rua = input("Nova Rua: ") or None
+            num = input("Novo Número: ") or None
+            bairro = input("Novo Bairro: ") or None
+            
+            resultado = atualizar_endereco(id_end, cep, rua, num, bairro)
+            exibir_resultado(resultado)
 
-    if numero is not None: 
-        campos_para_atualizar.append("NUMERO = %s")
-        valores.append(numero)
+        # --- Lógica para Pessoa ---
+        elif opcao == "2":
+            cpf = input("CPF da pessoa: ")
+            print("Pressione ENTER para manter o valor atual.")
+            nome = input("Novo Nome: ") or None
+            id_end = input("Novo ID Endereço: ") or None
+            
+            resultado = atualizar_pessoa(cpf, nome, id_endereco=id_end)
+            exibir_resultado(resultado)
 
-    if bairro is not None: 
-        campos_para_atualizar.append("BAIRRO = %s")
-        valores.append(bairro)
+        # --- Lógica para Usuário ---
+        elif opcao == "3":
+            id_p = input("CPF do Usuário: ")
+            print("Pressione ENTER para manter o valor atual.")
+            email = input("Novo Email: ") or None
+            senha = input("Nova Senha: ") or None
+            perfil = input("Novo Perfil (SEC, GES, PRO, CID): ") or None
+            
+            resultado = atualizar_usuario(id_p, email, senha, perfil)
+            exibir_resultado(resultado)
 
-    if not campos_para_atualizar:
-        return False 
-    
-    valores.append(id_endereco)
+        # --- Lógica para Serviço ---
+        elif opcao == "4":
+            id_s = input("ID do Serviço: ")
+            print("Pressione ENTER para manter o valor atual.")
+            nome = input("Novo Nome: ") or None
+            tempo = input("Novo Tempo Médio: ") or None
+            
+            resultado = atualizar_servico(id_s, nome, tempo_medio=tempo)
+            exibir_resultado(resultado)
 
-    sql = f"UPDATE ENDERECO SET {', '.join(campos_para_atualizar)} WHERE ID_ENDERECO = %s"
+        # --- Lógica para Oferece (Chave Composta) ---
+        elif opcao == "5":
+            id_u = input("ID da Unidade: ")
+            id_s = input("ID do Serviço: ")
+            print("Pressione ENTER para manter o valor atual.")
+            dia = input("Novo Dia (SEG, TER...): ") or None
+            h_i = input("Nova Hora Início: ") or None
+            h_f = input("Nova Hora Final: ") or None
+            vagas = input("Novas Vagas: ") or None
+            
+            resultado = atualizar_oferece(id_u, id_s, dia, h_i, h_f, vagas)
+            exibir_resultado(resultado)
 
-
-    try:
-
-        conn = conectar()
-        cursor = conn.cursor()
-        cursor.execute(sql, tuple(valores))
-        conn.commit()
-
-        sucesso = cursor.rowcount > 0 
-
-        cursor.close()
-        conn.close()
-        return sucesso
-    except Exception as e:
-        return e
-    
-
-
-def atualizar_oferece(id_unidade, id_servico, dia=None, h_inicio=None, h_fim=None, vagas=None):
-    campos_para_atualizar = []
-    valores = []
-
-    if dia is not None: 
-        campos_para_atualizar.append("DIA_SEMANA = %s")
-        valores.append(dia)
-
-    if h_inicio is not None: 
-        campos_para_atualizar.append("HORA_INICIO = %s")
-        valores.append(h_inicio)
-
-    if h_fim is not None: 
-        campos_para_atualizar.append("HORA_FINAL = %s")
-        valores.append(h_fim)
-
-    if vagas is not None: 
-        campos_para_atualizar.append("VAGAS = %s")
-        valores.append(vagas)
-
-    if not campos_para_atualizar: return False
-
-   # Chave composta 
-    valores.append(id_unidade)
-    valores.append(id_servico)
-
-    sql = f"UPDATE OFERECE SET {', '.join(campos_para_atualizar)} WHERE ID_UNIDADE = %s AND ID_SERVICO = %s"
-
-    try:
-
-        conn = conectar()
-        cursor = conn.cursor()
-        cursor.execute(sql, tuple(valores))
-        conn.commit()
-
-        sucesso = cursor.rowcount > 0 
-
-        cursor.close()
-        conn.close()
-        return sucesso
-    except Exception as e:
-        return e
-
-
-
-def atualizar_pessoa(cpf, nome = None, data_nascimento = None, id_endereco = None ):
-    campos_para_atualizar = []
-    valores = []
-
-    if nome is not None:
-        campos_para_atualizar.append("NOME = %s")
-        valores.append(nome)
-    
-    if id_endereco is not None: 
-        campos_para_atualizar.append("ID_ENDERECO= %s")
-        valores.append(id_endereco)
-
-    if not campos_para_atualizar:
-        return False #indica que nada foi alterado
-    
-
-    valores.append(cpf)
-    
-    sql = f"UPDATE PESSOA SET {','.join(campos_para_atualizar)} WHERE CPF = %s"
-
-
-    try:
-
-        conn = conectar()
-        cursor = conn.cursor()
-        cursor.execute(sql, tuple(valores))
-        conn.commit()
-
-        sucesso = cursor.rowcount > 0 
-
-        cursor.close()
-        conn.close()
-        return sucesso
-    except Exception as e:
-        return e
-    
-
-def atualizar_usuario(id_pessoa, email = None, senha_hash = None, perfil = None):
-    campos_para_atualizar = []
-    valores = []
-
-    if email is not None:
-        campos_para_atualizar.append("EMAIL = %s")
-        valores.append(email)
-    
-    if senha_hash is not None: 
-        campos_para_atualizar.append("SENHA_HASH = %s")
-        valores.append(senha_hash)
-    
-    if perfil is not None: 
-        campos_para_atualizar.append("PERFIL = %s")
-        valores.append(perfil)
-
-    if not campos_para_atualizar: 
-        return False
-    
-    valores.append(id_pessoa)
-
-    sql = f"UPDATE USUARIO SET {', '.join(campos_para_atualizar)} WHERE ID_PESSOA = %s"
-
-    try:
-
-        conn = conectar()
-        cursor = conn.cursor()
-        cursor.execute(sql, tuple(valores))
-        conn.commit()
-
-        sucesso = cursor.rowcount > 0 
-
-        cursor.close()
-        conn.close()
-        return sucesso
-    except Exception as e:
-        return e
-    
-
-def atualizar_servico(id_servico, nome = None, tempo_medio = None):
-    campos_para_atualizar = []
-    valores = []
-
-    if nome is not None: 
-        campos_para_atualizar.append("NOME = %s")
-        valores.append(nome)
-
-    if tempo_medio is not None: 
-        campos_para_atualizar.append("TEMPO_MEDIO = %s")
-        valores.append(tempo_medio)
-
-    if not campos_para_atualizar:
-        return False 
-    
-    valores.append(id_servico)
-
-    sql = f"UPDATE SERVICO SET {', '.join(campos_para_atualizar)} WHERE ID_SERVICO = %s"
-
-    try:
-
-        conn = conectar()
-        cursor = conn.cursor()
-        cursor.execute(sql, tuple(valores))
-        conn.commit()
-
-        sucesso = cursor.rowcount > 0 
-
-        cursor.close()
-        conn.close()
-        return sucesso
-    except Exception as e:
-        return e
+def exibir_resultado(res):
+    """Função auxiliar para tratar os retornos das suas funções de update"""
+    if res is True:
+        print("\n✅ Sucesso: Registro atualizado!")
+    elif res is False:
+        print("\n⚠️ Aviso: Nenhuma alteração foi feita (campos vazios ou ID não encontrado).")
+    else:
+        print(f"\n❌ Erro ao atualizar: {res}")
