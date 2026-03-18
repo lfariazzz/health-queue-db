@@ -1,7 +1,7 @@
 # Sistema de Gestão de Filas e Agendamentos Públicos
 
 ## 📌 Descrição e Objetivos
-Este projeto consiste no desenvolvimento de um Banco de Dados passando pelo ciclo completo de projeto, da modelagem conceitual à implementação lógica, para apoiar a gestão pública, norteado pela questão de pesquisa do **Tema 7**, proposto na disciplina de Banco de Dados (UFCA).
+Este projeto consiste no desenvolvimento de um Banco de Dados passando pelo ciclo completo de projeto, da modelagem conceitual à implementação lógica, para apoiar a gestão pública, norteado pela seguinte questão de pesquisa:
 
 **Questão de Pesquisa:**
 > "Como um sistema para gestão de filas e agendamentos públicos (CRAS, postos de saúde, CREAS) pode reduzir tempo de espera e faltas com regras de prioridade?"
@@ -34,12 +34,13 @@ A documentação deste projeto está organizada na **Wiki** deste repositório, 
 ## Configuração do banco
 
 1. Instale o MySQL localmente
-2. Rode o script `banco.sql` para criar o banco
+2. Rode o script `script_banco.sql` para criar o banco
 3. Copie `.env.example` para `.env`:
    cp .env.example .env
-4. Edite o `.env` com sua senha do MySQL
-5. pip install mysql-connector-python python-dotenv
-6. python main.py
+4. Edite o `.env` com sua senha do MySQL para poder acessar o banco
+5. Execute no terminal o comando: pip install mysql-connector-python python-dotenv
+6. Rode o script `popular_banco.sql` para criar amostras de tuplas
+7. python main.py
 ```
 ---
 ## 👥 Equipe do Projeto
