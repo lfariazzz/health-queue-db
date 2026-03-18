@@ -16,7 +16,7 @@ INSERT INTO servico (nome, tempo_medio) VALUES ('Cadastro Único', 40);
 INSERT INTO servico (nome, tempo_medio) VALUES ('Consulta Clínica', 15);
 INSERT INTO servico (nome, tempo_medio) VALUES ('Entrega de Título', 5);
 
--- 3. UNIDADE 
+-- 3. UNIDADE
 INSERT INTO unidade (nome, tipo, id_endereco) VALUES ('Vapt Vupt Juazeiro', 'Central de Atendimento', 1);
 INSERT INTO unidade (nome, tipo, id_endereco) VALUES ('Posto de Saúde Central', 'Saúde', 2);
 INSERT INTO unidade (nome, tipo, id_endereco) VALUES ('Detran Unidade Triângulo', 'Trânsito', 3);
@@ -24,8 +24,7 @@ INSERT INTO unidade (nome, tipo, id_endereco) VALUES ('Centro de Multiatendiment
 INSERT INTO unidade (nome, tipo, id_endereco) VALUES ('Secretaria de Finanças', 'Administrativo', 5);
 INSERT INTO unidade (nome, tipo, id_endereco) VALUES ('Câmara Municipal', 'Legislativo', 6);
 
--- 4. PESSOA (Adultos e Dependentes)
--- Responsáveis e Funcionários
+-- 4. PESSOA
 INSERT INTO pessoa (cpf, nome, data_nascimento, id_endereco) VALUES ('11122233344', 'Ana Beatriz Souza', '1990-05-15', 1);
 INSERT INTO pessoa (cpf, nome, data_nascimento, id_endereco) VALUES ('22233344455', 'Bruno Oliveira Santos', '1985-10-22', 2);
 INSERT INTO pessoa (cpf, nome, data_nascimento, id_endereco) VALUES ('33344455566', 'Carla Maria Ferreira', '1998-02-03', 3);
@@ -38,7 +37,9 @@ INSERT INTO pessoa (cpf, nome, data_nascimento, id_endereco) VALUES ('9990001112
 INSERT INTO pessoa (cpf, nome, data_nascimento, id_endereco) VALUES ('00011122233', 'Julia Paiva', '1993-01-14', 4);
 INSERT INTO pessoa (cpf, nome, data_nascimento, id_endereco) VALUES ('12121212121', 'Kauan Silva', '2001-06-20', 5);
 INSERT INTO pessoa (cpf, nome, data_nascimento, id_endereco) VALUES ('23232323232', 'Larissa Gomes', '1997-03-08', 6);
--- Dependentes (Cadastrados como pessoa primeiro)
+-- CORRIGIDO: adicionado médico
+INSERT INTO pessoa (cpf, nome, data_nascimento, id_endereco) VALUES ('34343434343', 'Dr. Marcos Vinicius', '1980-03-10', 1);
+-- Dependentes
 INSERT INTO pessoa (cpf, nome, data_nascimento, id_endereco) VALUES ('00011100011', 'Ana Beatriz Jr', '2015-05-15', 1);
 INSERT INTO pessoa (cpf, nome, data_nascimento, id_endereco) VALUES ('00022200022', 'Bruno Filho', '2018-10-22', 2);
 INSERT INTO pessoa (cpf, nome, data_nascimento, id_endereco) VALUES ('00033300033', 'Carla Maria Jr', '2020-02-03', 3);
@@ -62,8 +63,11 @@ INSERT INTO cidadao (id_pessoa, cartao_sus, nis) VALUES ('33344455566', '7003334
 INSERT INTO cidadao (id_pessoa, cartao_sus, nis) VALUES ('77788899900', '700777888999007', '77788899900');
 INSERT INTO cidadao (id_pessoa, cartao_sus, nis) VALUES ('88899900011', '700888999000118', '88899900011');
 INSERT INTO cidadao (id_pessoa, cartao_sus, nis) VALUES ('99900011122', '700999000111229', '99900011122');
+-- CORRIGIDO: dependentes precisam estar em cidadao para a query listar_dependentes funcionar
+INSERT INTO cidadao (id_pessoa, cartao_sus, nis) VALUES ('00011100011', '700000111000111', '00011100011');
+INSERT INTO cidadao (id_pessoa, cartao_sus, nis) VALUES ('00022200022', '700000222000222', '00022200022');
 
--- 8. DEPENDENTE (Relacionamento)
+-- 8. DEPENDENTE
 INSERT INTO dependente (id_pessoa, id_responsavel, vigencia, parentesco) VALUES ('00011100011', '11122233344', '2024-01-01', 'Filho(a)');
 INSERT INTO dependente (id_pessoa, id_responsavel, vigencia, parentesco) VALUES ('00022200022', '22233344455', '2024-01-01', 'Filho(a)');
 
@@ -74,22 +78,26 @@ INSERT INTO funcionario (id_pessoa, matricula, cargo, admissao) VALUES ('6667778
 INSERT INTO funcionario (id_pessoa, matricula, cargo, admissao) VALUES ('00011122233', 'MAT004', 'Atendente', '2024-03-01');
 INSERT INTO funcionario (id_pessoa, matricula, cargo, admissao) VALUES ('12121212121', 'MAT005', 'Analista', '2023-12-12');
 INSERT INTO funcionario (id_pessoa, matricula, cargo, admissao) VALUES ('23232323232', 'MAT006', 'Coordenador', '2024-01-05');
+-- CORRIGIDO: médico adicionado para a query listar_medicos_por_unidade funcionar
+INSERT INTO funcionario (id_pessoa, matricula, cargo, admissao) VALUES ('34343434343', 'MAT007', 'Médico', '2022-06-01');
 
 -- 10. LOTAÇÃO
 INSERT INTO lotacao (id_funcionario, id_unidade, data_inicio, data_final, horarios) VALUES ('44455566677', 1, '2024-01-10', '2026-12-31', '08:00 - 14:00');
 INSERT INTO lotacao (id_funcionario, id_unidade, data_inicio, data_final, horarios) VALUES ('55566677788', 2, '2023-05-15', '2026-12-31', '09:00 - 15:00');
+-- CORRIGIDO: lotação do médico adicionada
+INSERT INTO lotacao (id_funcionario, id_unidade, data_inicio, data_final, horarios) VALUES ('34343434343', 2, '2022-06-01', '2026-12-31', '07:00 - 13:00');
 
 -- 11. OFERECE
 INSERT INTO oferece (id_unidade, id_servico, dia_semana, hora_inicio, hora_final, vagas) VALUES (1, 1, 'SEG', '08:00:00', '12:00:00', 20);
 INSERT INTO oferece (id_unidade, id_servico, dia_semana, hora_inicio, hora_final, vagas) VALUES (1, 2, 'TER', '13:00:00', '17:00:00', 15);
 INSERT INTO oferece (id_unidade, id_servico, dia_semana, hora_inicio, hora_final, vagas) VALUES (2, 3, 'QUA', '07:00:00', '11:00:00', 10);
 
--- 12. AGENDAMENTO (Corrigido conforme as colunas do seu CREATE TABLE)
-INSERT INTO agendamento (data, hora, id_unidade_sediada, id_cidadao_solicitado, id_servico_referente, status_agendamento, prioridade) 
+-- 12. AGENDAMENTO
+INSERT INTO agendamento (data, hora, id_unidade_sediada, id_cidadao_solicitado, id_servico_referente, status_agendamento, prioridade)
 VALUES ('2026-04-01', '08:00:00', 1, '11122233344', 1, 'PENDENTE', 0);
 
-INSERT INTO agendamento (data, hora, id_unidade_sediada, id_cidadao_solicitado, id_servico_referente, status_agendamento, prioridade) 
+INSERT INTO agendamento (data, hora, id_unidade_sediada, id_cidadao_solicitado, id_servico_referente, status_agendamento, prioridade)
 VALUES ('2026-04-01', '09:30:00', 2, '22233344455', 3, 'CONFIRMADO', 1);
 
-INSERT INTO agendamento (data, hora, id_unidade_sediada, id_cidadao_solicitado, id_servico_referente, status_agendamento, prioridade) 
+INSERT INTO agendamento (data, hora, id_unidade_sediada, id_cidadao_solicitado, id_servico_referente, status_agendamento, prioridade)
 VALUES ('2026-04-02', '10:00:00', 3, '33344455566', 2, 'PENDENTE', 0);

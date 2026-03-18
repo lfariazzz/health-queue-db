@@ -14,26 +14,22 @@ from src.database.read import (
 )
 
 
-# As funções de `src.database.read` já imprimem seus resultados.
-# Aqui apenas chamamos os métodos diretamente.
-
-
 def menu_read():
     while True:
-        print("\n--- MENU ---")
-        print("1. Listar serviços oferecidos")
-        print("2. Listar unidades disponíveis")
-        print("3. Listar possíveis clientes registrados")
-        print("4. Listar médicos por unidade")
-        print("5. Relatório estatístico geral (status)")
-        print("6. Serviços mais procurados")
-        print("7. Unidades com endereço")
-        print("8. Dependentes de um cidadão")
-        print("9. Ordem de prioridade por unidade")
+        print("\n--- MENU DE CONSULTAS ---")
+        print("1.  Listar serviços oferecidos")
+        print("2.  Listar unidades disponíveis")
+        print("3.  Listar possíveis clientes registrados")
+        print("4.  Listar médicos por unidade")
+        print("5.  Relatório estatístico geral (status)")
+        print("6.  Serviços mais procurados")
+        print("7.  Unidades com endereço")
+        print("8.  Dependentes de um cidadão")
+        print("9.  Ordem de prioridade por unidade")
         print("10. Histórico de agendamentos de um cidadão")
         print("11. Horários de um serviço em uma unidade")
         print("12. Filtrar agendamentos (unidade, serviço, status)")
-        print("0. Voltar")
+        print("0.  Voltar")
 
         try:
             opcao = int(input("Escolha uma opção: "))
@@ -72,7 +68,7 @@ def menu_read():
         elif opcao == 12:
             unidade = input("Nome da unidade: ")
             servico = input("Nome do serviço: ")
-            status = input("Status do agendamento: ")
+            status  = input("Status do agendamento: ")
             filtrar_agendamentos_avancado(unidade, servico, status)
         elif opcao == 0:
             break
@@ -80,4 +76,6 @@ def menu_read():
             print("Opção inválida.")
 
 
-menu_read()
+# CORRIGIDO: chamada protegida com guard para não executar ao importar o módulo
+if __name__ == "__main__":
+    menu_read()

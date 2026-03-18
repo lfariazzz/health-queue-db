@@ -1,6 +1,7 @@
 from src.database.conexao import conectar
 
 # ---------------- DELETE ----------------
+
 def deletar_endereco(id_endereco):
     conn = conectar()
     cursor = conn.cursor()
@@ -9,15 +10,17 @@ def deletar_endereco(id_endereco):
     print("Endereço deletado com sucesso!")
     conn.close()
 
+
 def deletar_oferece(id_unidade, id_servico):
     conn = conectar()
     cursor = conn.cursor()
-    sql = "DELETE FROM Oferece WHERE ID_UNIDADE=%s AND ID_SERVICO=%s"
+    sql = "DELETE FROM oferece WHERE ID_UNIDADE=%s AND ID_SERVICO=%s"
     cursor.execute(sql, (id_unidade, id_servico))
     conn.commit()
     print("Associação Unidade-Serviço deletada com sucesso!")
     conn.close()
-    
+
+
 def deletar_pessoa(cpf):
     conn = conectar()
     cursor = conn.cursor()
@@ -25,6 +28,7 @@ def deletar_pessoa(cpf):
     conn.commit()
     print("Pessoa deletada com sucesso!")
     conn.close()
+
 
 def deletar_unidade(id_unidade):
     conn = conectar()
@@ -34,6 +38,7 @@ def deletar_unidade(id_unidade):
     print("Unidade deletada com sucesso!")
     conn.close()
 
+
 def deletar_servico(id_servico):
     conn = conectar()
     cursor = conn.cursor()
@@ -41,6 +46,7 @@ def deletar_servico(id_servico):
     conn.commit()
     print("Serviço deletado com sucesso!")
     conn.close()
+
 
 def deletar_agendamento(id_agendamento):
     conn = conectar()

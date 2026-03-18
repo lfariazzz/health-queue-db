@@ -2,7 +2,7 @@ from src.database.conexao import conectar
 
 # ---------------- CREATE ----------------
 
-def inserir_endereco(id_endereco, cep, rua, numero, bairro):
+def inserir_endereco(cep, rua, numero, bairro):
     conn = conectar()
     cursor = conn.cursor()
     sql_endereco = """INSERT INTO endereco (CEP, RUA, NUMERO, BAIRRO)
@@ -11,6 +11,7 @@ def inserir_endereco(id_endereco, cep, rua, numero, bairro):
     conn.commit()
     print("Endereço inserido com sucesso!")
     conn.close()
+
 
 def inserir_oferece(id_unidade, id_servico, dia_semana, hora_inicio, hora_final, vagas):
     conn = conectar()
@@ -22,18 +23,17 @@ def inserir_oferece(id_unidade, id_servico, dia_semana, hora_inicio, hora_final,
     print("Oferta de serviço inserida com sucesso!")
     conn.close()
 
+
 def inserir_unidade(nome, tipo, cep, rua, numero, bairro):
     conn = conectar()
     cursor = conn.cursor()
 
-    # Primeiro insere o endereço
     sql_endereco = """INSERT INTO endereco (CEP, RUA, NUMERO, BAIRRO)
                       VALUES (%s, %s, %s, %s)"""
     cursor.execute(sql_endereco, (cep, rua, numero, bairro))
     conn.commit()
-    id_endereco = cursor.lastrowid  # pega o ID do endereço recém-criado
+    id_endereco = cursor.lastrowid
 
-    # Depois insere a unidade vinculada ao endereço
     sql_unidade = """INSERT INTO unidade (NOME, TIPO, ID_ENDERECO)
                      VALUES (%s, %s, %s)"""
     cursor.execute(sql_unidade, (nome, tipo, id_endereco))
@@ -42,7 +42,7 @@ def inserir_unidade(nome, tipo, cep, rua, numero, bairro):
     print("Unidade e endereço inseridos com sucesso!")
     conn.close()
 
-          
+
 def inserir_servico(nome, tempo_medio):
     conn = conectar()
     cursor = conn.cursor()
@@ -52,19 +52,18 @@ def inserir_servico(nome, tempo_medio):
     print("Serviço inserido com sucesso!")
     conn.close()
 
+
+# CORRIGIDO: removida linha duplicada de cursor.execute para o endereço
 def inserir_pessoa_com_endereco(cpf, nome, data_nascimento, cep, rua, numero, bairro):
     conn = conectar()
     cursor = conn.cursor()
 
-    sql_endereco = """INSERT INTO ENDERECO ( CEP, RUA, NUMERO, BAIRRO)
+    sql_endereco = """INSERT INTO ENDERECO (CEP, RUA, NUMERO, BAIRRO)
                   VALUES (%s, %s, %s, %s)"""
-    
-    cursor.execute(sql_endereco, (cep, rua, numero, bairro))
 
-    cursor.execute(sql_endereco, (cep, rua, numero, bairro))
+    cursor.execute(sql_endereco, (cep, rua, numero, bairro))  # apenas uma vez
     id_endereco = cursor.lastrowid
 
-    # Inserir pessoa vinculada ao endereço
     sql_pessoa = """INSERT INTO PESSOA (CPF, NOME, DATA_NASCIMENTO, ID_ENDERECO)
                     VALUES (%s, %s, %s, %s)"""
     cursor.execute(sql_pessoa, (cpf, nome, data_nascimento, id_endereco))
@@ -84,7 +83,7 @@ def inserir_usuario(id_pessoa, email, senha_hash, perfil):
     print("Usuário inserido com sucesso!")
     conn.close()
 
-    
+
 def verificar_pessoa_existe(cpf):
     conn = conectar()
     cursor = conn.cursor()
@@ -92,6 +91,7 @@ def verificar_pessoa_existe(cpf):
     existe = cursor.fetchone() is not None
     conn.close()
     return existe
+
 
 def inserir_funcionario(id_pessoa, matricula, cargo, admissao):
     conn = conectar()
@@ -103,6 +103,7 @@ def inserir_funcionario(id_pessoa, matricula, cargo, admissao):
     print("Funcionário inserido com sucesso!")
     conn.close()
 
+
 def inserir_cidadao(id_pessoa, cartao_sus, nis):
     conn = conectar()
     cursor = conn.cursor()
@@ -112,7 +113,6 @@ def inserir_cidadao(id_pessoa, cartao_sus, nis):
     conn.commit()
     print("Cidadão inserido com sucesso!")
     conn.close()
-
 
 
 def inserir_agendamento(observacao, data, hora,
