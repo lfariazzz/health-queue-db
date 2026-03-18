@@ -45,4 +45,4 @@ def menu_delete():
         else:
             print("Opção inválida.")
 
-    menu_delete()
+menu_delete()
