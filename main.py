@@ -1,5 +1,6 @@
 # NAO ESQUECER DE IMPORTAS AS FUNCOES
 from src.cli.cli_create import menu_create
+from src.cli.cli_create import 
 
 def exibir_cabecalho():
     print("\n" + "="*30)
