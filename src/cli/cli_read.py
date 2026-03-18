@@ -91,5 +91,4 @@ def menu_read():
             print("Opção inválida.")
 
 
-if __name__ == '__main__':
-    menu_read()
+menu_read()
