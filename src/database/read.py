@@ -4,7 +4,6 @@ from src.database.conexao import conectar
 
 # Consulta sem parâmetro 1
 """Quais são os serviços oferecidos?"""
-# CORRIGIDO: LOGRADOURO não existe na tabela endereco, substituído por BAIRRO
 def listar_oferece():
     conn = conectar()
     cursor = conn.cursor(dictionary=True)
@@ -115,7 +114,6 @@ def listar_servicos_mais_procurados():
 
 # Consulta sem parâmetro 6
 """Listar todas as unidades e seus respectivos endereços"""
-# CORRIGIDO: LOGRADOURO não existe na tabela endereco, substituído por BAIRRO
 def listar_unidades_com_endereco():
     conn = conectar()
     cursor = conn.cursor(dictionary=True)

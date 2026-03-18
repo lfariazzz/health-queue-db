@@ -12,8 +12,8 @@ def menu():
         print("\n--- MENU ---")
         print("1. Inserir Pessoa")
         print("2. Inserir Serviço")
-        print("3. Inserir Usuário")        # CORRIGIDO: opção "inserir profissional" sem implementação removida;
-        print("4. Inserir Funcionário")    # opções renumeradas para evitar buraco no menu
+        print("3. Inserir Usuário")    
+        print("4. Inserir Funcionário") 
         print("5. Inserir Cidadão")
         print("6. Cadastrar nova unidade")
         print("7. Cadastrar oferta de serviço")
@@ -55,7 +55,6 @@ def menu():
                 continue
             inserir_servico(nome, int(tempo))
 
-        # CORRIGIDO: era "if" em vez de "elif", causando execução dupla
         elif opcao == "3":
             print("\n--- Cadastro de Novo Usuário ---")
             cpf = input("CPF da Pessoa vinculada: ")
@@ -86,7 +85,6 @@ def menu():
             except Exception as e:
                 print(f"Erro ao inserir usuário: {e}")
 
-        # CORRIGIDO: era "if" em vez de "elif", causando execução dupla
         elif opcao == "4":
             print("\n--- Cadastro de Novo Funcionário ---")
 
@@ -158,7 +156,6 @@ def menu():
             except Exception as e:
                 print(f"Erro ao inserir cidadão: {e}")
 
-        # CORRIGIDO: indentação estava quebrada (mistura de espaços e comentário deslocado)
         elif opcao == "6":
             print("\n--- Cadastro de Nova Unidade ---")
 

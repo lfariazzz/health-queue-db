@@ -75,7 +75,5 @@ def menu_read():
         else:
             print("Opção inválida.")
 
-
-# CORRIGIDO: chamada protegida com guard para não executar ao importar o módulo
 if __name__ == "__main__":
     menu_read()
