@@ -60,7 +60,7 @@ def inserir_pessoa_com_endereco(cpf, nome, data_nascimento, cep, rua, numero, ba
     sql_endereco = """INSERT INTO ENDERECO (CEP, RUA, NUMERO, BAIRRO)
                   VALUES (%s, %s, %s, %s)"""
 
-    cursor.execute(sql_endereco, (cep, rua, numero, bairro))  # apenas uma vez
+    cursor.execute(sql_endereco, (cep, rua, numero, bairro))
     id_endereco = cursor.lastrowid
 
     sql_pessoa = """INSERT INTO PESSOA (CPF, NOME, DATA_NASCIMENTO, ID_ENDERECO)
