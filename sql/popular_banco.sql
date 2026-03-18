@@ -1,30 +1,31 @@
-USE sistema_gestao_filas_agendamentos;
+USE sistema_gestao_filas_agendamentos_publicos;
 
-# Endereço 
-INSERT INTO endereco (id_endereco, cep, rua, numero, bairro) VALUES (1, '63010-000', 'Rua São Pedro', '100', 'Centro');
-INSERT INTO endereco (id_endereco, cep, rua, numero, bairro) VALUES (2, '63010-050', 'Rua do Cruzeiro', '45', 'Centro');
-INSERT INTO endereco (id_endereco, cep, rua, numero, bairro) VALUES (3, '63040-000', 'Av. Padre Cícero', '2000', 'Triângulo');
-INSERT INTO endereco (id_endereco, cep, rua, numero, bairro) VALUES (4, '63050-100', 'Rua Monsenhor Lima', '12', 'Salesianos');
-INSERT INTO endereco (id_endereco, cep, rua, numero, bairro) VALUES (5, '63020-000', 'Rua Santa Luzia', '88', 'Pio XII');
-INSERT INTO endereco (id_endereco, cep, rua, numero, bairro) VALUES (6, '63030-000', 'Av. Castelo Branco', '1000', 'Novo Juazeiro');
+-- 1. ENDEREÇO
+INSERT INTO endereco (cep, rua, numero, bairro) VALUES ('63010-000', 'Rua das Flores', '100', 'Centro');
+INSERT INTO endereco (cep, rua, numero, bairro) VALUES ('63020-000', 'Av. Brasil', '500', 'São José');
+INSERT INTO endereco (cep, rua, numero, bairro) VALUES ('63030-000', 'Rua do Horto', 's/n', 'Horto');
+INSERT INTO endereco (cep, rua, numero, bairro) VALUES ('63040-000', 'Rua Padre Cícero', '25', 'Salesianos');
+INSERT INTO endereco (cep, rua, numero, bairro) VALUES ('63050-000', 'Av. Castelo Branco', '1200', 'Pirajá');
+INSERT INTO endereco (cep, rua, numero, bairro) VALUES ('63010-010', 'Rua São Pedro', '88', 'Centro');
 
-# Serviço
-INSERT INTO servico (id_servico, nome, tempo_medio) VALUES (1, 'Emissão de RG', 20);
-INSERT INTO servico (id_servico, nome, tempo_medio) VALUES (2, 'Renovação de CNH', 30);
-INSERT INTO servico (id_servico, nome, tempo_medio) VALUES (3, 'Vacinação Covid-19', 10);
-INSERT INTO servico (id_servico, nome, tempo_medio) VALUES (4, 'Cadastro Único', 40);
-INSERT INTO servico (id_servico, nome, tempo_medio) VALUES (5, 'Consulta Clínica', 15);
-INSERT INTO servico (id_servico, nome, tempo_medio) VALUES (6, 'Entrega de Título', 5);
+-- 2. SERVIÇO
+INSERT INTO servico (nome, tempo_medio) VALUES ('Emissão de RG', 20);
+INSERT INTO servico (nome, tempo_medio) VALUES ('Renovação de CNH', 30);
+INSERT INTO servico (nome, tempo_medio) VALUES ('Vacinação Covid-19', 10);
+INSERT INTO servico (nome, tempo_medio) VALUES ('Cadastro Único', 40);
+INSERT INTO servico (nome, tempo_medio) VALUES ('Consulta Clínica', 15);
+INSERT INTO servico (nome, tempo_medio) VALUES ('Entrega de Título', 5);
 
-# Unidade 
-INSERT INTO unidade (id_unidade, nome, id_endereco) VALUES (1, 'Vapt Vupt Juazeiro', 1);
-INSERT INTO unidade (id_unidade, nome, id_endereco) VALUES (2, 'Posto de Saúde Central', 2);
-INSERT INTO unidade (id_unidade, nome, id_endereco) VALUES (3, 'Detran Unidade Triângulo', 3);
-INSERT INTO unidade (id_unidade, nome, id_endereco) VALUES (4, 'Centro de Multiatendimento', 4);
-INSERT INTO unidade (id_unidade, nome, id_endereco) VALUES (5, 'Secretaria de Finanças', 5);
-INSERT INTO unidade (id_unidade, nome, id_endereco) VALUES (6, 'Câmara Municipal', 6);
+-- 3. UNIDADE 
+INSERT INTO unidade (nome, tipo, id_endereco) VALUES ('Vapt Vupt Juazeiro', 'Central de Atendimento', 1);
+INSERT INTO unidade (nome, tipo, id_endereco) VALUES ('Posto de Saúde Central', 'Saúde', 2);
+INSERT INTO unidade (nome, tipo, id_endereco) VALUES ('Detran Unidade Triângulo', 'Trânsito', 3);
+INSERT INTO unidade (nome, tipo, id_endereco) VALUES ('Centro de Multiatendimento', 'Serviços Públicos', 4);
+INSERT INTO unidade (nome, tipo, id_endereco) VALUES ('Secretaria de Finanças', 'Administrativo', 5);
+INSERT INTO unidade (nome, tipo, id_endereco) VALUES ('Câmara Municipal', 'Legislativo', 6);
 
-# Pessoa 
+-- 4. PESSOA (Adultos e Dependentes)
+-- Responsáveis e Funcionários
 INSERT INTO pessoa (cpf, nome, data_nascimento, id_endereco) VALUES ('11122233344', 'Ana Beatriz Souza', '1990-05-15', 1);
 INSERT INTO pessoa (cpf, nome, data_nascimento, id_endereco) VALUES ('22233344455', 'Bruno Oliveira Santos', '1985-10-22', 2);
 INSERT INTO pessoa (cpf, nome, data_nascimento, id_endereco) VALUES ('33344455566', 'Carla Maria Ferreira', '1998-02-03', 3);
@@ -37,73 +38,58 @@ INSERT INTO pessoa (cpf, nome, data_nascimento, id_endereco) VALUES ('9990001112
 INSERT INTO pessoa (cpf, nome, data_nascimento, id_endereco) VALUES ('00011122233', 'Julia Paiva', '1993-01-14', 4);
 INSERT INTO pessoa (cpf, nome, data_nascimento, id_endereco) VALUES ('12121212121', 'Kauan Silva', '2001-06-20', 5);
 INSERT INTO pessoa (cpf, nome, data_nascimento, id_endereco) VALUES ('23232323232', 'Larissa Gomes', '1997-03-08', 6);
+-- Dependentes (Cadastrados como pessoa primeiro)
+INSERT INTO pessoa (cpf, nome, data_nascimento, id_endereco) VALUES ('00011100011', 'Ana Beatriz Jr', '2015-05-15', 1);
+INSERT INTO pessoa (cpf, nome, data_nascimento, id_endereco) VALUES ('00022200022', 'Bruno Filho', '2018-10-22', 2);
+INSERT INTO pessoa (cpf, nome, data_nascimento, id_endereco) VALUES ('00033300033', 'Carla Maria Jr', '2020-02-03', 3);
+INSERT INTO pessoa (cpf, nome, data_nascimento, id_endereco) VALUES ('00044400044', 'Gabriel Jr', '2012-04-12', 1);
+INSERT INTO pessoa (cpf, nome, data_nascimento, id_endereco) VALUES ('00055500055', 'Heloisa Jr', '2016-08-25', 2);
+INSERT INTO pessoa (cpf, nome, data_nascimento, id_endereco) VALUES ('00066600066', 'Igor Jr', '2014-11-30', 3);
 
-# Usuário
-INSERT INTO usuario (id_pessoa, email, senha_hash, perfil) VALUES ('11122233344', 'ana.souza@email.com', 'hash1', 'USER');
-INSERT INTO usuario (id_pessoa, email, senha_hash, perfil) VALUES ('22233344455', 'bruno.santos@email.com', 'hash2', 'USER');
-INSERT INTO usuario (id_pessoa, email, senha_hash, perfil) VALUES ('33344455566', 'carla.ferreira@email.com', 'hash3', 'USER');
-INSERT INTO usuario (id_pessoa, email, senha_hash, perfil) VALUES ('77788899900', 'gabriel.rocha@email.com', 'hash7', 'USER');
-INSERT INTO usuario (id_pessoa, email, senha_hash, perfil) VALUES ('88899900011', 'heloisa.mendes@email.com', 'hash8', 'USER');
-INSERT INTO usuario (id_pessoa, email, senha_hash, perfil) VALUES ('99900011122', 'igor.cavalcante@email.com', 'hash9', 'USER');
-INSERT INTO usuario (id_pessoa, email, senha_hash, perfil) VALUES ('44455566677', 'diego.lima@email.com', 'hash4', 'ADMIN');
-INSERT INTO usuario (id_pessoa, email, senha_hash, perfil) VALUES ('55566677788', 'elena.martins@email.com', 'hash5', 'ADMIN');
-INSERT INTO usuario (id_pessoa, email, senha_hash, perfil) VALUES ('66677788899', 'fabio.alencar@email.com', 'hash6', 'ADMIN');
-INSERT INTO usuario (id_pessoa, email, senha_hash, perfil) VALUES ('00011122233', 'julia.paiva@email.com', 'hash10', 'USER');
-INSERT INTO usuario (id_pessoa, email, senha_hash, perfil) VALUES ('12121212121', 'kauan.silva@email.com', 'hash11', 'USER');
-INSERT INTO usuario (id_pessoa, email, senha_hash, perfil) VALUES ('23232323232', 'larissa.gomes@email.com', 'hash12', 'USER');
+-- 5. USUARIO
+INSERT INTO usuario (id_pessoa, email, senha_hash, perfil) VALUES ('11122233344', 'ana.souza@email.com', 'hash1', 'CID');
+INSERT INTO usuario (id_pessoa, email, senha_hash, perfil) VALUES ('44455566677', 'diego.lima@email.com', 'hash4', 'GES');
+INSERT INTO usuario (id_pessoa, email, senha_hash, perfil) VALUES ('00011122233', 'julia.paiva@email.com', 'hash10', 'CID');
 
-# Telefone
-INSERT INTO telefone (numero, cpf_pessoa) VALUES ('(88) 99911-2233', '11122233344');
-INSERT INTO telefone (numero, cpf_pessoa) VALUES ('(88) 99922-3344', '22233344455');
-INSERT INTO telefone (numero, cpf_pessoa) VALUES ('(88) 3511-0000', '33344455566');
-INSERT INTO telefone (numero, cpf_pessoa) VALUES ('(88) 98877-6655', '44455566677');
-INSERT INTO telefone (numero, cpf_pessoa) VALUES ('(88) 99955-4433', '55566677788');
-INSERT INTO telefone (numero, cpf_pessoa) VALUES ('(88) 3512-1122', '66677788899');
+-- 6. TELEFONE
+INSERT INTO telefone (id_pessoa, cod_telefone, numero_telefone) VALUES ('11122233344', 1, '(88) 99911-2233');
+INSERT INTO telefone (id_pessoa, cod_telefone, numero_telefone) VALUES ('44455566677', 1, '(88) 98877-6655');
 
-# Cidadão
-INSERT INTO cidadao (id_pessoa, data_cadastro) VALUES ('11122233344', '2024-01-10');
-INSERT INTO cidadao (id_pessoa, data_cadastro) VALUES ('22233344455', '2024-02-15');
-INSERT INTO cidadao (id_pessoa, data_cadastro) VALUES ('33344455566', '2024-03-20');
-INSERT INTO cidadao (id_pessoa, data_cadastro) VALUES ('77788899900', '2024-04-05');
-INSERT INTO cidadao (id_pessoa, data_cadastro) VALUES ('88899900011', '2024-04-10');
-INSERT INTO cidadao (id_pessoa, data_cadastro) VALUES ('99900011122', '2024-05-01');
+-- 7. CIDADÃO
+INSERT INTO cidadao (id_pessoa, cartao_sus, nis) VALUES ('11122233344', '700111222333441', '11122233344');
+INSERT INTO cidadao (id_pessoa, cartao_sus, nis) VALUES ('22233344455', '700222333444552', '22233344455');
+INSERT INTO cidadao (id_pessoa, cartao_sus, nis) VALUES ('33344455566', '700333444555663', '33344455566');
+INSERT INTO cidadao (id_pessoa, cartao_sus, nis) VALUES ('77788899900', '700777888999007', '77788899900');
+INSERT INTO cidadao (id_pessoa, cartao_sus, nis) VALUES ('88899900011', '700888999000118', '88899900011');
+INSERT INTO cidadao (id_pessoa, cartao_sus, nis) VALUES ('99900011122', '700999000111229', '99900011122');
 
-# Funcionario
-INSERT INTO funcionario (id_pessoa, salario, cargo) VALUES ('44455566677', 2500.00, 'Atendente');
-INSERT INTO funcionario (id_pessoa, salario, cargo) VALUES ('55566677788', 4800.00, 'Gerente');
-INSERT INTO funcionario (id_pessoa, salario, cargo) VALUES ('66677788899', 3200.00, 'Supervisor');
-INSERT INTO funcionario (id_pessoa, salario, cargo) VALUES ('00011122233', 2800.00, 'Atendente');
-INSERT INTO funcionario (id_pessoa, salario, cargo) VALUES ('12121212121', 3500.00, 'Analista');
-INSERT INTO funcionario (id_pessoa, salario, cargo) VALUES ('23232323232', 4200.00, 'Coordenador');
+-- 8. DEPENDENTE (Relacionamento)
+INSERT INTO dependente (id_pessoa, id_responsavel, vigencia, parentesco) VALUES ('00011100011', '11122233344', '2024-01-01', 'Filho(a)');
+INSERT INTO dependente (id_pessoa, id_responsavel, vigencia, parentesco) VALUES ('00022200022', '22233344455', '2024-01-01', 'Filho(a)');
 
-# Lotação
-INSERT INTO lotacao (id_pessoa, id_unidade, data_inicio) VALUES ('44455566677', 1, '2023-01-10');
-INSERT INTO lotacao (id_pessoa, id_unidade, data_inicio) VALUES ('55566677788', 2, '2023-02-15');
-INSERT INTO lotacao (id_pessoa, id_unidade, data_inicio) VALUES ('66677788899', 3, '2023-03-20');
-INSERT INTO lotacao (id_pessoa, id_unidade, data_inicio) VALUES ('00011122233', 4, '2023-04-05');
-INSERT INTO lotacao (id_pessoa, id_unidade, data_inicio) VALUES ('12121212121', 5, '2023-05-10');
-INSERT INTO lotacao (id_pessoa, id_unidade, data_inicio) VALUES ('23232323232', 6, '2023-06-15');
+-- 9. FUNCIONÁRIO
+INSERT INTO funcionario (id_pessoa, matricula, cargo, admissao) VALUES ('44455566677', 'MAT001', 'Atendente', '2024-01-10');
+INSERT INTO funcionario (id_pessoa, matricula, cargo, admissao) VALUES ('55566677788', 'MAT002', 'Gerente', '2023-05-15');
+INSERT INTO funcionario (id_pessoa, matricula, cargo, admissao) VALUES ('66677788899', 'MAT003', 'Supervisor', '2024-02-20');
+INSERT INTO funcionario (id_pessoa, matricula, cargo, admissao) VALUES ('00011122233', 'MAT004', 'Atendente', '2024-03-01');
+INSERT INTO funcionario (id_pessoa, matricula, cargo, admissao) VALUES ('12121212121', 'MAT005', 'Analista', '2023-12-12');
+INSERT INTO funcionario (id_pessoa, matricula, cargo, admissao) VALUES ('23232323232', 'MAT006', 'Coordenador', '2024-01-05');
 
-# Oferece
-INSERT INTO oferece (id_unidade, id_servico) VALUES (1, 1);
-INSERT INTO oferece (id_unidade, id_servico) VALUES (1, 2);
-INSERT INTO oferece (id_unidade, id_servico) VALUES (2, 3);
-INSERT INTO oferece (id_unidade, id_servico) VALUES (2, 5);
-INSERT INTO oferece (id_unidade, id_servico) VALUES (3, 2);
-INSERT INTO oferece (id_unidade, id_servico) VALUES (4, 4);
+-- 10. LOTAÇÃO
+INSERT INTO lotacao (id_funcionario, id_unidade, data_inicio, data_final, horarios) VALUES ('44455566677', 1, '2024-01-10', '2026-12-31', '08:00 - 14:00');
+INSERT INTO lotacao (id_funcionario, id_unidade, data_inicio, data_final, horarios) VALUES ('55566677788', 2, '2023-05-15', '2026-12-31', '09:00 - 15:00');
 
-# Dependendente
-INSERT INTO dependente (nome, data_nascimento, id_pessoa_responsavel) VALUES ('Ana Beatriz Jr', '2015-05-15', '11122233344');
-INSERT INTO dependente (nome, data_nascimento, id_pessoa_responsavel) VALUES ('Bruno Filho', '2018-10-22', '22233344455');
-INSERT INTO dependente (nome, data_nascimento, id_pessoa_responsavel) VALUES ('Carla Maria Jr', '2020-02-03', '33344455566');
-INSERT INTO dependente (nome, data_nascimento, id_pessoa_responsavel) VALUES ('Gabriel Jr', '2012-04-12', '77788899900');
-INSERT INTO dependente (nome, data_nascimento, id_pessoa_responsavel) VALUES ('Heloisa Jr', '2016-08-25', '88899900011');
-INSERT INTO dependente (nome, data_nascimento, id_pessoa_responsavel) VALUES ('Igor Jr', '2014-11-30', '99900011122');
+-- 11. OFERECE
+INSERT INTO oferece (id_unidade, id_servico, dia_semana, hora_inicio, hora_final, vagas) VALUES (1, 1, 'SEG', '08:00:00', '12:00:00', 20);
+INSERT INTO oferece (id_unidade, id_servico, dia_semana, hora_inicio, hora_final, vagas) VALUES (1, 2, 'TER', '13:00:00', '17:00:00', 15);
+INSERT INTO oferece (id_unidade, id_servico, dia_semana, hora_inicio, hora_final, vagas) VALUES (2, 3, 'QUA', '07:00:00', '11:00:00', 10);
 
-# Agendamento
-INSERT INTO agendamento (data_hora, status, id_pessoa, id_servico, id_unidade) VALUES ('2026-04-01 08:00:00', 'Agendado', '11122233344', 1, 1);
-INSERT INTO agendamento (data_hora, status, id_pessoa, id_servico, id_unidade) VALUES ('2026-04-01 09:00:00', 'Concluido', '22233344455', 3, 2);
-INSERT INTO agendamento (data_hora, status, id_pessoa, id_servico, id_unidade) VALUES ('2026-04-02 10:30:00', 'Agendado', '33344455566', 2, 3);
-INSERT INTO agendamento (data_hora, status, id_pessoa, id_servico, id_unidade) VALUES ('2026-04-02 14:00:00', 'Cancelado', '77788899900', 4, 4);
-INSERT INTO agendamento (data_hora, status, id_pessoa, id_servico, id_unidade) VALUES ('2026-04-03 08:30:00', 'Agendado', '88899900011', 6, 5);
-INSERT INTO agendamento (data_hora, status, id_pessoa, id_servico, id_unidade) VALUES ('2026-04-03 11:00:00', 'Agendado', '99900011122', 5, 6);
+-- 12. AGENDAMENTO (Corrigido conforme as colunas do seu CREATE TABLE)
+INSERT INTO agendamento (data, hora, id_unidade_sediada, id_cidadao_solicitado, id_servico_referente, status_agendamento, prioridade) 
+VALUES ('2026-04-01', '08:00:00', 1, '11122233344', 1, 'PENDENTE', 0);
+
+INSERT INTO agendamento (data, hora, id_unidade_sediada, id_cidadao_solicitado, id_servico_referente, status_agendamento, prioridade) 
+VALUES ('2026-04-01', '09:30:00', 2, '22233344455', 3, 'CONFIRMADO', 1);
+
+INSERT INTO agendamento (data, hora, id_unidade_sediada, id_cidadao_solicitado, id_servico_referente, status_agendamento, prioridade) 
+VALUES ('2026-04-02', '10:00:00', 3, '33344455566', 2, 'PENDENTE', 0);
