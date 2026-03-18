@@ -18,12 +18,30 @@ Este projeto consiste no desenvolvimento de um Banco de Dados passando pelo cicl
 * Desenvolver habilidades de projeto em equipe e resolução de problemas reais.
 
 ## 📂 Estrutura do Projeto e Instruções
-A documentação deste projeto está organizada na **Wiki** deste repositório, com uma página para cada um dos artefatos que serão entregues:
 
-* **[Acesse a WIKI Oficial aqui]([https://gitlab.com/ufca/cct/es-bd-2025-2/grupo16/-/wikis/home](https://github.com/lfariazzz/health-queue-db/wiki))**
-    * Consulte a seção *01. Requisitos* para entender as Regras de Negócio.
+A documentação deste projeto está organizada na **Wiki** deste repositório, com uma página para cada um dos artefatos entregues:
+
+* **[Acesse a WIKI Oficial aqui](https://github.com/lfariazzz/health-queue-db/wiki)**
+    * Consulte a seção *01. Discussão, Requisitos e Modelo Conceitual* para entender as Regras de Negócio e Histórias de Usuário.
     * Consulte a seção *02. MER* e *03. DER* para ver a modelagem dos dados.
-    * Consulte a seção *04. Esquema Relacional* para ver a estrutura das tabelas.
+    * Consulte a seção *04. Esquema Relacional* para ver a estrutura das tabelas mapeadas.
+    * Consulte a seção *05. Normalização* para ver a análise de dependências funcionais e formas normais (1FN, 2FN, 3FN).
+    * Consulte a seção *06. Amostra Mínima de Dados* para ver os dados de teste utilizados.
+    * Consulte a seção *07. Consultas em Linguagem Natural* para ver as perguntas de negócio respondidas pelo sistema.
+    * Consulte a seção *08. Implementação do Modelo Físico* para ver os ajustes estruturais realizados no modelo e as decisões técnicas tomadas nesta etapa.
+
+---
+
+## ⚙️ Como Executar
+
+### Pré-requisitos
+- Python 3.8+
+- MySQL 8.0+
+
+### Passo a passo
+
+1. Clone o repositório:
+```bash
 
 
 ## 👥 Equipe do Projeto
