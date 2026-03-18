@@ -22,7 +22,9 @@ def listar_oferece():
     for row in cursor.fetchall():
         print(f"Unidade que oferta: {row['nome_unidade']}")
         print(f"Tipo de unidade: {row['tipo_unidade']}")
-        print(f"Endereço unidade: {row['LOGRADOURO'], row['RUA'], row['NUMERO']}")
+        print(f"Endereço unidade: {row['LOGRADOURO']}")
+        print(f"Rua: {row['RUA']}")
+        print(f"Número: {row['NUMERO']}")
         print(f"Serviço: {row['nome_servico']}")
         print(f"------------------------------")
     conn.close()
@@ -76,8 +78,13 @@ def relatorio_estatistico_geral():
         GROUP BY STATUS_AGENDAMENTO
     """)
     relatorio = cursor.fetchall()
+    if not relatorio:
+        print("Nenhum resultado encontrado.")
+    else:
+        for row in relatorio:
+            print(f"Status: {row.get('STATUS_AGENDAMENTO')} - Total: {row.get('total_por_status')}")
+            print("------------------------------")
     conn.close()
-    return relatorio
 
 # Consulta sem parâmetro 5
 """Quais os serviços mais procurados no sistema?"""
@@ -91,8 +98,14 @@ def listar_servicos_mais_procurados():
         GROUP BY servico.NOME ORDER BY total DESC
     """)
     servicos_mais_procurados = cursor.fetchall()
+    if not servicos_mais_procurados:
+        print("Nenhum serviço encontrado.")
+    else:
+        for row in servicos_mais_procurados:
+            print(f"Serviço: {row.get('NOME')}")
+            print(f"Total de agendamentos: {row.get('total')}")
+            print("------------------------------")
     conn.close()
-    return servicos_mais_procurados
 
 # Consulta sem parâmetro 6
 """Listar todas as unidades e seus respectivos endereços"""
@@ -105,14 +118,21 @@ def listar_unidades_com_endereco():
         JOIN endereco ON unidade.ID_ENDERECO = endereco.ID_ENDERECO
     """)
     unidades_com_endereco = cursor.fetchall()
+    if not unidades_com_endereco:
+        print("Nenhuma unidade encontrada.")
+    else:
+        for row in unidades_com_endereco:
+            print(f"Nome: {row.get('NOME')}")
+            print(f"Tipo: {row.get('TIPO')}")
+            print(f"Endereço: {row.get('LOGRADOURO')}, {row.get('RUA')}, {row.get('NUMERO')}")
+            print("------------------------------")
     conn.close()
-    return unidades_com_endereco
 
 #Consulta parametrizável simples 1
 """Quais médicos estão disponível na unidade X?"""
 def listar_medicos_por_unidade(nome_unidade):
     conn = conectar()
-    cursor = conn.cursor()
+    cursor = conn.cursor(dictionary=True)
     cursor.execute("""
                    SELECT pessoa.nome AS nome_medico, unidade.nome AS nome_unidade 
                    FROM funcionario
@@ -122,8 +142,15 @@ def listar_medicos_por_unidade(nome_unidade):
                    WHERE funcionario.cargo='Médico' AND unidade.nome=%s
                    """, (nome_unidade,))
     medicos = cursor.fetchall()
+    if not medicos:
+        print("Nenhum médico encontrado para essa unidade.")
+    else:
+        for row in medicos:
+            # row is a dict because dictionary=True
+            print(f"Médico: {row.get('nome_medico')}")
+            print(f"Unidade: {row.get('nome_unidade')}")
+            print("------------------------------")
     conn.close()
-    return medicos
 
 # Consulta parametrizável simples 2
 """Quais são os dependentes do cidadão X?"""
@@ -141,8 +168,17 @@ def listar_dependentes_por_cidadao(cpf_responsavel):
                     JOIN cidadao ON pessoa.CPF = cidadao.ID_PESSOA
                     WHERE dependente.ID_RESPONSAVEL = %s""", (cpf_responsavel,))
     dependentes = cursor.fetchall()
+    if not dependentes:
+        print("Nenhum dependente encontrado para esse responsável.")
+    else:
+        for row in dependentes:
+            print(f"Nome: {row.get('nome_dependente')}")
+            print(f"CPF: {row.get('cpf_dependente')}")
+            print(f"Cartão SUS: {row.get('CARTAO_SUS')}")
+            print(f"Parentesco: {row.get('PARENTESCO')}")
+            print(f"Vigência: {row.get('VIGENCIA')}")
+            print("------------------------------")
     conn.close()
-    return dependentes
 
 # Consulta parametrizável simples 3
 """Qual é a ordem de prioridade na unidade X?"""
@@ -162,8 +198,16 @@ def listar_prioridade_de_cidadao_por_unidade(nome_unidade):
                     WHERE unidade.NOME = %s AND agendamento.STATUS_AGENDAMENTO = 'PENDENTE'
                     ORDER BY agendamento.PRIORIDADE DESC, agendamento.DATA ASC, agendamento.HORA ASC""", (nome_unidade,))
     cidadaos_prioridade = cursor.fetchall()
+    if not cidadaos_prioridade:
+        print("Nenhum cidadão prioritário encontrado para essa unidade.")
+    else:
+        for row in cidadaos_prioridade:
+            print(f"Nome: {row.get('nome_cidadao')}")
+            print(f"Cartão SUS: {row.get('CARTAO_SUS')}")
+            print(f"Prioridade: {row.get('PRIORIDADE')} - Hora: {row.get('HORA')}")
+            print(f"Status: {row.get('STATUS_AGENDAMENTO')}")
+            print("------------------------------")
     conn.close()
-    return cidadaos_prioridade
 
 # Consulta parametrizável simples 4
 """Qual o histórico de agendamentos do cidadão X?"""
@@ -183,10 +227,16 @@ def listar_historico_cidadao(cpf_cidadao):
         WHERE agendamento.ID_CIDADAO_SOLICITADO = %s
         ORDER BY agendamento.DATA DESC, agendamento.HORA DESC
     """, (cpf_cidadao,))
-    
     historico = cursor.fetchall()
+    if not historico:
+        print("Nenhum histórico encontrado para esse cidadão.")
+    else:
+        for row in historico:
+            print(f"Data: {row.get('DATA')} - Hora: {row.get('HORA')}")
+            print(f"Serviço: {row.get('nome_servico')} - Unidade: {row.get('nome_unidade')}")
+            print(f"Status: {row.get('STATUS_AGENDAMENTO')}")
+            print("------------------------------")
     conn.close()
-    return historico
     
 # Consulta com 2 parâmetros
 """Quais são os horários de um serviço X na unidade Y?"""
@@ -201,8 +251,16 @@ def listar_horarios_servico_unidade(nome_servico, nome_unidade):
         WHERE servico.NOME = %s AND unidade.NOME = %s
     """, (nome_servico, nome_unidade))
     horarios_servico = cursor.fetchall()
+    if not horarios_servico:
+        print("Nenhum horário encontrado para esse serviço/unidade.")
+    else:
+        for row in horarios_servico:
+            print(f"Dia da semana: {row.get('DIA_SEMANA')}")
+            print(f"Início: {row.get('HORA_INICIO')}")
+            print(f"Término: {row.get('HORA_FINAL')}")
+            print(f"Vagas: {row.get('VAGAS')}")
+            print("------------------------------")
     conn.close()
-    return horarios_servico
 
 # Consulta com 3 parâmetros
 """Busca avançada: Filtrar agendamentos por Unidade, Serviço e Status"""
@@ -218,5 +276,13 @@ def filtrar_agendamentos_avancado(unidade, servico, status):
         WHERE unidade.NOME = %s AND servico.NOME = %s AND agendamento.STATUS_AGENDAMENTO = %s
     """, (unidade, servico, status))
     agendamentos_filtrados = cursor.fetchall()
+    if not agendamentos_filtrados:
+        print("Nenhum agendamento encontrado com esses filtros.")
+    else:
+        for row in agendamentos_filtrados:
+            print(f"Nome: {row.get('NOME')}")
+            print(f"Data: {row.get('DATA')}")
+            print(f"Hora: {row.get('HORA')}")
+            print(f"Status: {row.get('STATUS_AGENDAMENTO')}")
+            print("------------------------------")
     conn.close()
-    return agendamentos_filtrados

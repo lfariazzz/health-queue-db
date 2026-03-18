@@ -14,19 +14,8 @@ from src.database.read import (
 )
 
 
-def _print_rows(rows):
-    if not rows:
-        print("Nenhum resultado encontrado.")
-        return
-    for row in rows:
-        if isinstance(row, dict):
-            for k, v in row.items():
-                print(f"{k}: {v}")
-        elif isinstance(row, (list, tuple)):
-            print(" | ".join(str(x) for x in row))
-        else:
-            print(row)
-        print("------------------------------")
+# As funções de `src.database.read` já imprimem seus resultados.
+# Aqui apenas chamamos os métodos diretamente.
 
 
 def menu_read():
@@ -60,36 +49,34 @@ def menu_read():
             listar_cidadaos()
         elif opcao == 4:
             nome_unidade = input("Nome da unidade: ")
-            _print_rows(listar_medicos_por_unidade(nome_unidade))
+            listar_medicos_por_unidade(nome_unidade)
         elif opcao == 5:
-            _print_rows(relatorio_estatistico_geral())
+            relatorio_estatistico_geral()
         elif opcao == 6:
-            _print_rows(listar_servicos_mais_procurados())
+            listar_servicos_mais_procurados()
         elif opcao == 7:
-            _print_rows(listar_unidades_com_endereco())
+            listar_unidades_com_endereco()
         elif opcao == 8:
             cpf = input("CPF do responsável: ")
-            _print_rows(listar_dependentes_por_cidadao(cpf))
+            listar_dependentes_por_cidadao(cpf)
         elif opcao == 9:
             nome_unidade = input("Nome da unidade: ")
-            _print_rows(listar_prioridade_de_cidadao_por_unidade(nome_unidade))
+            listar_prioridade_de_cidadao_por_unidade(nome_unidade)
         elif opcao == 10:
             cpf = input("CPF do cidadão: ")
-            _print_rows(listar_historico_cidadao(cpf))
+            listar_historico_cidadao(cpf)
         elif opcao == 11:
             servico = input("Nome do serviço: ")
             unidade = input("Nome da unidade: ")
-            _print_rows(listar_horarios_servico_unidade(servico, unidade))
+            listar_horarios_servico_unidade(servico, unidade)
         elif opcao == 12:
             unidade = input("Nome da unidade: ")
             servico = input("Nome do serviço: ")
             status = input("Status do agendamento: ")
-            _print_rows(filtrar_agendamentos_avancado(unidade, servico, status))
+            filtrar_agendamentos_avancado(unidade, servico, status)
         elif opcao == 0:
             break
         else:
             print("Opção inválida.")
 
-
-if __name__ == '__main__':
     menu_read()
