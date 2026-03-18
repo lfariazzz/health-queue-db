@@ -53,7 +53,6 @@ def inserir_servico(nome, tempo_medio):
     conn.close()
 
 
-# CORRIGIDO: removida linha duplicada de cursor.execute para o endereço
 def inserir_pessoa_com_endereco(cpf, nome, data_nascimento, cep, rua, numero, bairro):
     conn = conectar()
     cursor = conn.cursor()
