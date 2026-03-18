@@ -79,6 +79,35 @@ def relatorio_estatistico_geral():
     conn.close()
     return relatorio
 
+# Consulta sem parâmetro 5
+"""Quais os serviços mais procurados no sistema?"""
+def listar_servicos_mais_procurados():
+    conn = conectar()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("""
+        SELECT servico.NOME, COUNT(agendamento.ID_AGENDAMENTO) AS total 
+        FROM agendamento
+        JOIN servico ON agendamento.ID_SERVICO_REFERENTE = servico.ID_SERVICO
+        GROUP BY servico.NOME ORDER BY total DESC
+    """)
+    servicos_mais_procurados = cursor.fetchall()
+    conn.close()
+    return servicos_mais_procurados
+
+# Consulta sem parâmetro 6
+"""Listar todas as unidades e seus respectivos endereços"""
+def listar_unidades_com_endereco():
+    conn = conectar()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("""
+        SELECT unidade.NOME, unidade.TIPO, endereco.LOGRADOURO, endereco.RUA, endereco.NUMERO 
+        FROM unidade
+        JOIN endereco ON unidade.ID_ENDERECO = endereco.ID_ENDERECO
+    """)
+    unidades_com_endereco = cursor.fetchall()
+    conn.close()
+    return unidades_com_endereco
+
 #Consulta parametrizável simples 1
 """Quais médicos estão disponível na unidade X?"""
 def listar_medicos_por_unidade(nome_unidade):
@@ -136,3 +165,58 @@ def listar_prioridade_de_cidadao_por_unidade(nome_unidade):
     conn.close()
     return cidadaos_prioridade
 
+# Consulta parametrizável simples 4
+"""Qual o histórico de agendamentos do cidadão X?"""
+def listar_historico_cidadao(cpf_cidadao):
+    conn = conectar()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("""
+        SELECT 
+            agendamento.DATA, 
+            agendamento.HORA, 
+            servico.NOME AS nome_servico, 
+            unidade.NOME AS nome_unidade,
+            agendamento.STATUS_AGENDAMENTO
+        FROM agendamento
+        JOIN servico ON agendamento.ID_SERVICO_REFERENTE = servico.ID_SERVICO
+        JOIN unidade ON agendamento.ID_UNIDADE_SEDIADA = unidade.ID_UNIDADE
+        WHERE agendamento.ID_CIDADAO_SOLICITADO = %s
+        ORDER BY agendamento.DATA DESC, agendamento.HORA DESC
+    """, (cpf_cidadao,))
+    
+    historico = cursor.fetchall()
+    conn.close()
+    return historico
+    
+# Consulta com 2 parâmetros
+"""Quais são os horários de um serviço X na unidade Y?"""
+def listar_horarios_servico_unidade(nome_servico, nome_unidade):
+    conn = conectar()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("""
+        SELECT oferece.DIA_SEMANA, oferece.HORA_INICIO, oferece.HORA_FINAL, oferece.VAGAS
+        FROM oferece
+        JOIN servico ON oferece.ID_SERVICO = servico.ID_SERVICO
+        JOIN unidade ON oferece.ID_UNIDADE = unidade.ID_UNIDADE
+        WHERE servico.NOME = %s AND unidade.NOME = %s
+    """, (nome_servico, nome_unidade))
+    horarios_servico = cursor.fetchall()
+    conn.close()
+    return horarios_servico
+
+# Consulta com 3 parâmetros
+"""Busca avançada: Filtrar agendamentos por Unidade, Serviço e Status"""
+def filtrar_agendamentos_avancado(unidade, servico, status):
+    conn = conectar()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("""
+        SELECT pessoa.NOME, agendamento.DATA, agendamento.HORA, agendamento.STATUS_AGENDAMENTO
+        FROM agendamento
+        JOIN unidade ON agendamento.ID_UNIDADE_SEDIADA = unidade.ID_UNIDADE
+        JOIN servico ON agendamento.ID_SERVICO_REFERENTE = servico.ID_SERVICO
+        JOIN pessoa ON agendamento.ID_CIDADAO_SOLICITADO = pessoa.CPF
+        WHERE unidade.NOME = %s AND servico.NOME = %s AND agendamento.STATUS_AGENDAMENTO = %s
+    """, (unidade, servico, status))
+    agendamentos_filtrados = cursor.fetchall()
+    conn.close()
+    return agendamentos_filtrados
