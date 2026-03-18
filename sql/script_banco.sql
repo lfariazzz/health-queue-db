@@ -21,10 +21,10 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- Criação das tabelas
 CREATE TABLE endereco (
     ID_ENDERECO INT NOT NULL AUTO_INCREMENT,
-    LOGRADOURO  VARCHAR(100) NOT NULL,
     CEP         VARCHAR(10)  NOT NULL,
     RUA         VARCHAR(100) NOT NULL,
     NUMERO      VARCHAR(10)  NOT NULL,
+    BAIRRO      VARCHAR(100) NOT NULL, -- Adicionamos o Bairro no lugar do Logradouro
     PRIMARY KEY (ID_ENDERECO)
 );
 
