@@ -63,6 +63,22 @@ def listar_cidadaos():
         print(f"------------------------------")
     conn.close()
 
+# Consulta sem parâmetro 4
+"""Qual o volume de atendimentos e faltas por status em todo o sistema?"""
+def relatorio_estatistico_geral():
+    conn = conectar()
+    cursor = conn.cursor(dictionary=True)
+    cursor.execute("""
+        SELECT 
+            STATUS_AGENDAMENTO, 
+            COUNT(*) AS total_por_status
+        FROM agendamento
+        GROUP BY STATUS_AGENDAMENTO
+    """)
+    relatorio = cursor.fetchall()
+    conn.close()
+    return relatorio
+
 #Consulta parametrizável simples 1
 """Quais médicos estão disponível na unidade X?"""
 def listar_medicos_por_unidade(nome_unidade):
