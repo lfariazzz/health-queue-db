@@ -1,8 +1,8 @@
-from src.database.crud import (
+from src.database.create import (
     inserir_pessoa_com_endereco, inserir_servico, inserir_oferece
 )
 
-def menu():
+def menu_create():
     while True:
         print("\n--- MENU ---")
         print("1. Inserir Pessoa ")
