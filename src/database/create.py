@@ -114,6 +114,7 @@ def inserir_cidadao(id_pessoa, cartao_sus, nis):
     conn.close()
 
 
+
 def inserir_agendamento(observacao, data, hora,
                         data_inicio_realizado, data_final_realizado, horario_realizado,
                         id_funcionario_realizado,

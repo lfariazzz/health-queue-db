@@ -63,6 +63,7 @@ def menu():
                 print("Erro: Pessoa não encontrada. Cadastre primeiro na opção 1.")
                 continue
 
+
             email = input("Email: ").strip()
             if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
                 print("Erro: Email inválido.")
